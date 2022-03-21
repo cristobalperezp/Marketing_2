@@ -1,0 +1,272 @@
+---
+title:  'Laboratorio 1. IN5602 - Semestre Otoño 2022'
+author: 'Profesor: Marcel Goic | Auxiliares: Nicolás Acevedo, Gonzalo Díaz, Valentina Leiva, Gabriela Mora, Patricio Ortiz, Camila Pulgar'
+date:   '16 de Marzo de 2022'
+subtitle: 'Integrantes: Jesús Farias, Felipe Moreno y Cristóbal Pérez'
+output:
+  html_document:
+    df_print: paged
+    theme: simplex
+    highlight: tango
+    toc: yes
+encoding: UTF-8
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preliminares
+
+Este es un archivo R Markdown. Este formato te pemite integrar código, su salidas y poder comentarlos para poder ordenar y discutir el análisis que estén haciendo. Las salidas se pueden exportar a formato HTML, PDF y MS Word, lo que facilita la comunicación con los equipos de trabajo. Este formato no solo se adecua bien para que ustedes comuniquen sus avances, sino que también es bastante usado en equipos de desarollo.
+
+En esencia, un archivo markdown es un documento de texto estructurado en el que podemos incluir titulos, subtitulos y listas, en el que podemos incrustar bloques de código R como este:
+
+```{r cars}
+x <- rnorm(1000)
+hist(x)
+```
+
+Al hacer clic en el botón **Knit**, se generará un documento que incluye tanto el contenido como la salida de cualquier fragmento de código R incorporado dentro del documento. Para instalar y cargar markdowns, necesitamos los siguientes comandos.
+
+```{r instalation, eval = FALSE}
+install.packages("rmarkdown")
+library(rmarkdown)
+```
+
+Para más detalles sobre el uso de Markdown en R ver: <http://rmarkdown.rstudio.com>.
+
+# Desarollo del laboratorio {.tabset}
+
+## R Markdowns
+
+### Herramientas Básicas de MarkDown
+
+A continuación, se presentan las herramientas base para poder utilizar Markdown de buena manera:
+
+#### 1. Encabezados y listas.
+
+Existen 6 niveles para definir los encabezados y se utilizan con el caracter "\#". Por ejemplo, un texto antecedido de "\#\#\#\#\#" generará un titulo de cuarto nivel:
+
+##### este es el nivel 5
+
+Así dependiendo de la importancia o del orden puedes variar el tamaño de los títulos.
+
+Para generar listas desordenadas, lo único que deben hacer es agregar un "-" antes de la oración o palabra(+ y \*, son otras opciones válidas).
+
+-   En esta linea podemos ver como se genera la lista
+-   Otra linea
+-   Asterisco tambien funciona
+
+Para listas ordenadas, agregar número y un espacio, luego la oración
+
+1.  No me gusta el humor boomer del profesor.
+2.  Pero si me caen muy bien los auxiliares.
+3.  Voy a aprender mucho en este curso.
+
+#### 2. Citas, espaciado, negritas y otros herramientas.
+
+Si quieres realizar una cita , solo deben agregar el comando "\>" y esta se llevara a cabo. \> en este línea se puede observar el formato de una cita
+
+Para generar una separación basta con escribir tres guiones bajo. \_\_\_
+
+Para incluir negritas o cursivas, basta con rodear el texto con asteriscos(uno para cursiva, dos negrita y tres ambos). *Este curso lo van a pasar todos los estudiantes que constantemente asistan a las clases auxiliares y hagan a consciencia los Laboratorios*
+
+Si quieren ponerse creativos, también pueden incluir enlaces. Si quieres agregar un enlace, debes poner entre llaves cuadradas el string que será en hipervínculo y entre llaves redondas el enlace.
+
+[Departamento de Ingeniería Industrial](http://www.dii.uchile.cl)
+
+#### 3. Código
+
+Dependiendo de que se busque hacer, hay distintas maneras de usar códigos. Si es una línea, 4 espacios en blanco bastan
+
+    Esto es código
+
+Sin embargo lo más típico es usar bloques (o chunks) de código:
+
+"\`\`\`{r nombre_del_bloque}"
+
+"\`\`\`"
+
+En casi todos los ejemplos vamos a usar bloques. El *nombre_del_bloque* es opcional, pero ayuda a ordenar tu codigo. Los bloques admiten varias opciones para que se muestre/no se muestre, se ejecute/no se ejecute o no muetre las salidas intermedias. Por el momento vamos a partir con las opciones por defecto que muestra y ejecuta todo.
+
+-   Para transformar ver el output de tu archivo markdown presiona ctrl+shift+k
+-   Save with encoding: UTF-8, para evitar tener problemas con los acentos
+
+## R Programing
+
+### Antes de comenzar a Programar
+
+Antes de comenzar debemos setear el directorio de trabajo (ie. donde están los archivos, bases y documentos a utilizar.). Además, le puede ser util limpiar el espacio de trabjo y fijar decimales.
+
+```{r start, eval = FALSE}
+
+# como tenemos eval = FALSE, esta secuencia no se va a ejecutar. Solo la incluimos como referencia.
+
+rm(list=ls())         # Limpia la lista de objetos 
+graphics.off()        # Limpia la lista de gráficos
+options(digits = 5)   # Número de dígitos a utilizar
+
+
+```
+
+\#\#\#\* Variables Numéricas
+
+```{r}
+var1 = 5+1
+print(var1)
+```
+
+Otro ejemplo:
+
+```{r}
+a = 4
+b = 8
+a+b
+a*b
+a/b
+```
+
+#### Ciclos y sentencias condicionales if - else
+
+Secuencias *for*
+
+```{r}
+for (i in 1:10){
+  cat("iteración número", i, "\n")
+}
+```
+
+sentencias condicionales.
+
+```{r}
+a=6
+b=5
+if (a>b){
+  print("Hola Mundo")
+}
+
+```
+
+#### definición de funciones
+
+```{r funciondelauxALCUADRADO}
+funciondelauxALCUADRADO <- function(a){
+  c = a**a
+  return(c)
+}
+funciondelauxALCUADRADO(2)
+```
+
+#### Dataframes
+
+```{r}
+set.seed(27)
+y = 11:20
+mi_df <- data.frame(x = 1:10,
+                    y,
+                    w = sample(c("Grupo 1", "Grupo 2"), 10, replace = TRUE))
+
+print(mi_df)
+mi_df$z<-3:12
+print(mi_df)
+print(mi_df[2,1])
+print(mi_df[2,"x"])
+#Devuelve una lista
+print(mi_df["x"])
+#devuelve un vector
+print(mi_df$x)
+#devuelve un df filtrado
+subset(mi_df, w=="Grupo 2")
+```
+
+## Preguntas
+
+##### Pregunta 1
+
+Use la función *rnorm()* para definir un dataframe con columnas $x_1$ y $x_2$ de tamaño 30. Use la misma función para definir tambien una columna de errores normales $\epsilon$. Notar que puede incluir en la función *rnorm()* la media y desviación estándar que desea en sus vectores. Para este caso use la que prefiera, si no le entrega ninguna a la función, por defecto creará datos con media 0 y desviación estándar 1.
+
+```{r p1a}
+
+#definir DataFrame con columnas x1, x2 y e
+x1 <- rnorm(30)
+x2 <- rnorm(30)
+e <- rnorm(30)
+
+df <- data.frame(x1,x2,e)
+
+```
+
+Elija ahora tres valores cualquiera de $b_0$, $b_1$ y $b_2$ y defina la columna $y$ como $y = b_0 + b_1 x_1 + b_2 x_2 + \varepsilon$.
+
+```{r p1b}
+
+# definir b0, b1 y b2
+
+b_0= 10
+b_1= 4
+b_2 = 2
+# definir df$y = b0 + b1*df$x1 + b2*df$x2 + df$e
+
+y= b_0 + b_1*df$x1+b_2*df$x2+df$e
+```
+
+##### Pregunta 2
+
+Use el comando *lm()* para correr un modelo de regresión $y = b_0 + b_1 x_1 + b_2 x_2 + \varepsilon$.
+
+```{r p2a}
+
+# myreg <- lm()
+reg <- lm(y ~ df$x1+df$x2)
+#summary(myreg)
+summary(reg)
+```
+
+Repita la pregunta 1, pero generando las columnas $x_1$, $x_2$, $\varepsilon$ (y consecuentemente de $y$) con un largo 10000. Ejecute de nuevo la regresión y compare los resultados de ambas regresiones. Para estos efectos, mantenga los mismos valores a $b_0$, $b_1$ y $b_2$ y las mismas medias y desviaciones estándar que usó en la generación de los vectores $x_1$, $x_2$ y $\epsilon$ en la pregunta 1.
+
+```{r p2b}
+
+# definir dataframe con columnas x1, x2 y e 
+x1b<-rnorm(10000)
+x2b<-rnorm(10000)
+eb<-rnorm(10000)
+
+df2 <- data.frame(x1b,x2b,eb)
+# definir df$y = b0 + b1*df$x1 + b2*df$x2 + df$e
+b_0= 10
+b_1= 4
+b_2 = 2
+
+y2= b_0 + b_1*df2$x1b+b_2*df2$x2b+df2$eb
+
+# myreg <- lm()
+reg2 <- lm(y2~df2$x1b+df2$x2b)
+#summary(myreg)
+summary(reg2)
+
+```
+
+Comente qué cambia.
+
+R: Al comparar las 2 regresiones, se puede notar que el promedio de los errores baja considerablemente para el modelo de largo 10.000, esto nos dice que es último modelo reduce los errores con respecto a las estimaciones lo que se puede apreciar en los parámetros estimados por el modelo ($\beta$), los que son bastante similares a los teóricos 10, 4 y 2.
+
+
+##### Pregunta 3
+
+Explore brevemente la documentación de la función *lm()* para ver cómo puede rescatar los valores predichos por el modelo de regresión para cada valor de $x_1$ y $x_2$. Llámele *ypred* a este vector y use la función *plot()* para generar un scatter plot de y vs ypred.
+
+```{r preg3}
+
+# ypred <- ...
+#buscando la documentación de lm(), encontramos la función predict() la cual recibe un modelo de regresión y estima los valores predichos por esta 
+ypred <- predict(reg2)
+# plot(y, ypred)
+plot(y2,ypred)
+```
+
+
+
+Comente brevemente cómo interpreta los resultados.
+
+R: Podemos apreciar que en el gráfico de valores reales vs valores predichos, los puntos se agrupan entorno a la recta identidad, de lo cual ante una mayor concentración entorno a la recta hay una mayor precisión de predicción o sea los valores estimados se asemejan más a los reales. En este gráfico si se aprecia una gran concentración entorno a la recta por lo que el modelo de 10.000 entradas ajusta bien.
